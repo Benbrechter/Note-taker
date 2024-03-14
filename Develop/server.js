@@ -1,7 +1,9 @@
 const express = require('express');
-const note = require('./db/db.json'); 
+const notes = require('./db/db.json'); 
 const fs = require('fs')
 const path = require('path');
+const uuid = require('./helpers/uuid');
+const { error } = require('console');
 
 const PORT = process.env.Port || 3001;
 const app = express();
@@ -19,8 +21,9 @@ app.get('/notes', (req, res) => {
 
 //this will get the desired notes that you need
 app.get('/api/notes', (req, res) => {
- res.json(note)
+ res.json(notes)
 })
+
 
 app.post('/api/notes', (req, res) => {
   console.info(`${req.method} request recived to add a new note`);
@@ -31,7 +34,8 @@ app.post('/api/notes', (req, res) => {
     const newNote = {
       title,
       text,
-    }
+      id: uuid(),
+    };
   
    //this is reading the file that containes tha notes
   fs.readFile('./db/db.json', 'utf8', (err, data) => {
@@ -67,6 +71,28 @@ app.post('/api/notes', (req, res) => {
  
 })
 
+app.delete('/api/notes/:id', (req, res) => {
+  //this gets the id of the note 
+   let id = req.params.id; 
+   //This looks through the elements in the notes and finds the matching id
+   const noteToDelete = notes.find(el => el.id === id);
+   //this tells the index of the note
+   const index = notes.indexOf(noteToDelete);
+ 
+   //splice deletes the note
+   notes.splice(index, 1);
+  
+   fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
+    res.status(200).json({
+      status: 'success',
+      data: {
+        note: noteToDelete
+      }
+    })
+   })
+  
+})
+ 
 //this directs you to the index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'))
