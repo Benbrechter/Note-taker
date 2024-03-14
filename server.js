@@ -5,7 +5,7 @@ const path = require('path');
 const uuid = require('./helpers/uuid');
 const { error } = require('console');
 
-const PORT = process.env.Port || 3001;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 //these are the middlewares
@@ -83,7 +83,7 @@ app.delete('/api/notes/:id', (req, res) => {
    notes.splice(index, 1);
   
    fs.writeFile('./db/db.json', JSON.stringify(notes), (err) => {
-    res.status(200).json({
+    res.status(200).json({ 
       status: 'success',
       data: {
         note: noteToDelete
@@ -99,5 +99,5 @@ app.get('*', (req, res) => {
 })
 
 app.listen(PORT, () =>
-  console.log(`App listening at http://localhost:${PORT}`)
+  console.log(`App listening at ${PORT}`)
 );

@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "serve": "^14.2.1"
   },
   "devDependencies": {
     "jest": "^29.7.0"
