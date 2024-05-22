@@ -3,6 +3,7 @@ const notes = require('./db/db.json');
 const fs = require('fs')
 const path = require('path');
 const uuid = require('./helpers/uuid');
+const { error } = require('console');
 
 const PORT = process.env.Port || 3001;
 const app = express();
@@ -20,19 +21,19 @@ app.get('/notes', (req, res) => {
 
 //this will get the desired notes that you need
 app.get('/api/notes', (req, res) => {
- fs.readFile('./db/db.json', 'utf8', (err,data) => {
-  if(err){
-    throw new Error(err);
-  };
-  try {
-    const notes = JSON.parse(data);
-    res.json(notes);
-  } catch (parseError) {
-    console.error('Error parsing JSON:', parseError);
-    res.status(500).json({ error: 'Failed to parse JSON data' });
-  }
-});
-});
+  fs.readFile('./db/db.json', 'utf8', (err,data) => {
+    if(err){
+      throw new Error(err);
+    };
+    try {
+      const notes = JSON.parse(data);
+      res.json(notes);
+    } catch (parseError) {
+      console.error('Error parsing JSON:', parseError);
+      res.status(500).json({ error: 'Failed to parse JSON data' });
+    }
+  });
+})
 
 
 app.post('/api/notes', (req, res) => {
@@ -74,7 +75,7 @@ app.post('/api/notes', (req, res) => {
   };
 
   console.log(response);
-  res.status(200).json(response);
+  res.status(201).json(response);
  }else {
   res.status(500).json('Error in posting review');
 }
