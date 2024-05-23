@@ -1,8 +1,9 @@
 # Note Taker
    ![Github license](https://img.shields.io/badge/license-MIT%20License-blue.svg)
-https://bb-notetaker-4614366318c5.herokuapp.com/notes? 
+
   ## Description
   This app allows you to keep track of notes as you need them. You have the ability to add new notes and delete.
+  https://bb-notetaker-4614366318c5.herokuapp.com/notes? 
 
   ## Table of Contents
   - [Installation](#installation)
