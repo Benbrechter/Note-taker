@@ -5,7 +5,7 @@ const path = require('path');
 const uuid = require('./helpers/uuid');
 const { error } = require('console');
 
-const PORT = process.env.Port || 3001;
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 //these are the middlewares
